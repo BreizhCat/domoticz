@@ -1,13 +1,15 @@
 --[[ 
 author = BreizhCat
 create = 02.01.2020
-update = 
+update = 20.10.2020
 filename = global_data.lua
 repo   = https://github.com/BreizhCat/domoticz/blob/master/global_data.lua
 help   = https://www.domoticz.com/wiki/DzVents:_next_generation_LUA_scripting#Shared_helper_functions
 description = General include with tools
-
+change      =
+    20.10.2020 [1.1] Nouvelle fonction log_dsm
 --]]
+
 
 return {
     helpers = {
@@ -22,7 +24,7 @@ return {
         --]]
         notif_telegram = function (dz, message, priority)
             dz.notify(message, message, priority or dz.PRIORITY_NORMAL, nil, nil, dz.NSS_TELEGRAM)
-        end
+        end,
         
         --[[
         Function log_dsm: Add entry in DSM Log
@@ -32,7 +34,7 @@ return {
         ]]--
         log_dsm = function (dz, message)
             os.execute('synologset1 sys info 0x11100000 '.. message)
-        end
+        end,
     }
 }
 
