@@ -14,7 +14,7 @@ local __version__     = "1.0"
 
 return {
     on = {
-        devices =  { 41 }, -- Porte d'entrée
+        devices =  { 41 }, -- Mvt Garage
         timer = { 'every minute' }
     },
     logging = {
