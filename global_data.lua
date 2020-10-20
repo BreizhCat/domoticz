@@ -35,6 +35,15 @@ return {
         log_dsm = function (dz, message)
             os.execute('synologset1 sys info 0x11100000 '.. message)
         end,
+        
+        sendTelegramPicture = function (dz, message, image)
+            local telegramKey = dz.variables('telegramKey').value
+            local telegramRoom = dz.variables('telegramRoom').value
+            
+            local telegramAPI = 'curl -s -X POST "https://api.telegram.org/bot'..telegramKey..'/sendPhoto" -F chat_id="'..telegramRoom..'" -F photo="'..image..'" -F caption="'..message..'"'
+            dz.log(telegramAPI)
+            os.execute(telegramAPI)
+        end,
     }
 }
 
