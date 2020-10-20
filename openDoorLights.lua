@@ -1,16 +1,17 @@
 --[[
 author   = BreizhCat
 create   = 27.01.2020
-update   = 06.04.2020
+update   = 20.10.2020
 filename = openDoorLights.lua
 
 description = Allumage lumière du hall si le soleil est couché ou pas encore levé
 change      =
-    06.04.2020: nouvelle version de dzEvent (nouvelles fonctions disponibles)
+    06.04.2020 [1.1] nouvelle version de dzEvent (nouvelles fonctions disponibles)
+    20.10.2020 [1.2] l'action n'a lieu que sur l'ouverture de la porte
 --]]
 
 local __script_name__ = "openDoorLights"
-local __version__     = "1.1"
+local __version__     = "1.2"
 
 return {
     on = {
@@ -25,12 +26,14 @@ return {
         local hallLight = dz.devices(15)
  
         if trigger.isDevice then
-            if dz.time.minutesSinceMidnight > dz.time.sunsetInMinutes then
-                hallLight.dimTo(100)
-            end
-            
-            if dz.time.minutesSinceMidnight < dz.time.sunriseInMinutes then
-               hallLight.dimTo(50) 
+            if trigger._state == 'Open' then
+                if dz.time.minutesSinceMidnight > dz.time.sunsetInMinutes then
+                    hallLight.dimTo(100)
+                end
+                
+                if dz.time.minutesSinceMidnight < dz.time.sunriseInMinutes then
+                   hallLight.dimTo(50) 
+                end
             end
         end
 

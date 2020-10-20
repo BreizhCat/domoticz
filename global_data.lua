@@ -23,6 +23,16 @@ return {
         notif_telegram = function (dz, message, priority)
             dz.notify(message, message, priority or dz.PRIORITY_NORMAL, nil, nil, dz.NSS_TELEGRAM)
         end
+        
+        --[[
+        Function log_dsm: Add entry in DSM Log
+        @dz       : self reference to object domoticz in main function
+        @message  : your message
+        
+        ]]--
+        log_dsm = function (dz, message)
+            os.execute('synologset1 sys info 0x11100000 '.. message)
+        end
     }
 }
 
