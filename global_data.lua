@@ -7,7 +7,7 @@ repo   = https://github.com/BreizhCat/domoticz/blob/master/global_data.lua
 help   = https://www.domoticz.com/wiki/DzVents:_next_generation_LUA_scripting#Shared_helper_functions
 description = General include with tools
 change      =
-    20.10.2020 [1.1] Nouvelle fonction log_dsm
+    20.10.2020 [1.1] Nouvelles fonctions log_dsm / sendTelegramPicture
 --]]
 
 
@@ -30,12 +30,17 @@ return {
         Function log_dsm: Add entry in DSM Log
         @dz       : self reference to object domoticz in main function
         @message  : your message
-        
         ]]--
         log_dsm = function (dz, message)
             os.execute('synologset1 sys info 0x11100000 '.. message)
         end,
         
+        --[[
+        Function sendTelegramPicture: Call Telegram API to send notification with image
+        @dz       : self reference to object domoticz in main function
+        @message  : your message
+        @image    : [URL] or @[file]
+        ]]--        
         sendTelegramPicture = function (dz, message, image)
             local telegramKey = dz.variables('telegramKey').value
             local telegramRoom = dz.variables('telegramRoom').value
@@ -44,6 +49,7 @@ return {
             dz.log(telegramAPI)
             os.execute(telegramAPI)
         end,
+
     }
 }
 
